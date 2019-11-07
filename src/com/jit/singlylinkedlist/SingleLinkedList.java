@@ -330,4 +330,100 @@ public class SingleLinkedList {
 		return startM;
 	}
 
+	public void mergeSort() {
+		start = mergeSortRec(start);
+	}
+
+	private Node mergeSortRec(Node listStart) {
+		if (listStart == null || listStart.link == null)/* if list empty or has one element */
+			return listStart;
+
+		/* If more then one elemet */
+		Node start1 = listStart;
+		Node start2 = divideList(listStart);
+		start1 = mergeSortRec(start1);
+		start2 = mergeSortRec(start2);
+		Node startM = merge2(start1, start2);
+		return null;
+	}
+
+	private Node divideList(Node p) {
+		Node q = p.link.link;
+		while (q != null && q.link != null) {
+			p = p.link;
+			q = q.link.link;
+		}
+		Node start2 = p.link;
+		p.link = null;
+		return start2;
+	}
+
+	public boolean hasCycle() {
+		if (findCycle() == null)
+			return false;
+		else
+			return true;
+	}
+
+	private Node findCycle() {
+		if (start == null || start.link == null)
+			return null;
+		Node slowR = start, fastR = start;
+		while (fastR != null && fastR.link != null) {
+			slowR = slowR.link;
+			fastR = fastR.link.link;
+			if (slowR == fastR) {
+				return slowR;
+			}
+		}
+		return null;
+	}
+
+	public void removeCycle() {
+		Node c = findCycle();
+		if (c == null)
+			return;
+		System.out.println("Node at which cycle was detected is : " + c.info);
+
+		Node p = c, q = c;
+		int lenCycle = 0;
+		do {
+			lenCycle++;
+			q = q.link;
+		} while (p != q);
+
+		System.out.println("Length of the cycle is : " + lenCycle);
+		int lenRemList = 0;
+		p = start;
+		while (p != q) {
+			lenRemList++;
+			p = p.link;
+			q = q.link;
+		}
+
+		System.out.println("Number of nodes not included in the cycle are : " + lenRemList);
+		int lengthList = lenCycle + lenRemList;
+		System.out.println("Length of the list is : " + lengthList);
+		p = start;
+		for (int i = 1; i <= lengthList - 1; i++)
+			p = p.link;
+		p.link = null;
+	}
+
+	public void insertCycle(int x) {
+		if (start == null)
+			return;
+		Node p = start, px = null, prev = null;
+		while (p != null) {
+			if (p.info == x)
+				px = p;
+			prev = p;
+			p = p.link;
+		}
+		if (px != null)
+			prev.link = px;
+		else
+			System.out.println(x + " is not present in the list");
+	}
+
 }
