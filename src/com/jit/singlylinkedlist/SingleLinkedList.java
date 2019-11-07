@@ -89,7 +89,7 @@ public class SingleLinkedList {
 		}
 	}
 
-	public void inserAfter(int data, int x) {
+	public void insertAfter(int data, int x) {
 		Node p = start;
 		while (p != null) {
 			if (p.info == x)
