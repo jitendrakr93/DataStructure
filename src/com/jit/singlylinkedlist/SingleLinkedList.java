@@ -2,6 +2,8 @@ package com.jit.singlylinkedlist;
 
 import java.util.Scanner;
 
+import com.jit.circularlinkedlist.CircularLinkedList;
+
 public class SingleLinkedList {
 
 	public Node start;
@@ -214,6 +216,20 @@ public class SingleLinkedList {
 			p = next;
 		}
 		start = prev;
+	}
+
+	public void concatenate(SingleLinkedList list) {
+		if (start == null) {
+			start = list.start;
+			return;
+		}
+		if (list.start == null) {
+			return;
+		}
+		Node p = start;
+		while (p.link != null)
+			p = p.link;
+		p.link = list.start;
 	}
 
 	public void BubbleSortExData() {
