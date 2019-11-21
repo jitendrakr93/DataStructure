@@ -1,0 +1,12 @@
+package com.jit.stackusinglinkedlist;
+
+public class Node {
+	public int info;
+	public Node link;
+	
+	public Node(int i) {
+		info = i;
+		link = null;
+	}
+
+}
